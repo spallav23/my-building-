@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Link } from 'react-router-dom';
@@ -7,14 +7,27 @@ import { motion } from 'framer-motion';
 import MaintenanceOverview from './MaintenanceOverview';
 
 const Home = () => {
+  const [email, setemail] = useState()
+  // const [blocksData, setblocksData] = useState()
   const navigate = useNavigate();
   axios.get('http://localhost:3000/').then((e)=>{
      if(!e.data.valid){
       
         alert("please login first ");
         navigate('/')
-    }})
-    const blocksData = [
+    }
+    else{
+      setemail(e.data.email)
+    }
+  })
+    useEffect(() => {
+     axios.post('http://localhost:3000/getmaintenance',{email:email}).then((e)=>{
+      // setblocksData(e.data);
+     })
+      
+    }, [])
+    
+      const blocksData =[
       {
         block: 'A',
         flatDetails: [

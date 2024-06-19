@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const MaintenanceDetails = () => {
   const navigate = useNavigate();
+  const [email, setemail] = useState()
   const [block, setBlock] = useState('');
   const [flatNumber, setFlatNumber] = useState('');
   const [maintenanceMonth, setMaintenanceMonth] = useState('');
@@ -13,10 +14,14 @@ const MaintenanceDetails = () => {
      
        alert("please login first ");
        navigate('/')
-   }})
+   }
+   else{
+    setemail(e.data.email);
+   }
+  })
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/maintenance',{block,flatNumber,maintenanceMonth,maintenanceAmount,paymentMode}).then((e)=>{
+    axios.post('http://localhost:3000/maintenance',{block,flatNumber,maintenanceMonth,maintenanceAmount,paymentMode,email}).then((e)=>{
       console.log(e);
       if(e.status == 202){
           navigate('/home')

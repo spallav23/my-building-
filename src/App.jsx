@@ -2,7 +2,26 @@ import React from 'react';
 import './App.css'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 function App() {
+  function logclick(){
+    axios.get('http://localhost:3000/').then((e) => {
+      if (e.data.valid) {
+        const yn = confirm("do you want to log out ?");
+        if (yn) {
+          axios.post('http://localhost:3000/',{e}).then(() => {
+            document.getElementById('login').innerHTML = 'Log in';
+            navigate('/');
+          })
+        }
+      }
+      else {
+  
+        navigate('/login');
+      
+    }
+    })
+  }
   return (
     <>
     < div className = "flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4" >
@@ -61,12 +80,12 @@ function App() {
         transition={{ duration: 0.5 }}
         className="flex space-x-4"
       >
-        <Link to="/login">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+       <Link to="/login"> 
+          <button  className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
             Login
           </button>
-        </Link>
-        <Link to="/register">
+          </Link>
+        <Link to="/signup">
           <button className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
             Sign Up
           </button>

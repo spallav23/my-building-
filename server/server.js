@@ -79,10 +79,6 @@ app.post('/signup',async(req, res) => {
   })
 
 
-
-
-
-
   app.post('/flat',async(req, res) => {
     const data =await req.body;
     const result = flat.findOne({block:data.block,flatNumber:data.flatNumber})
@@ -103,6 +99,19 @@ app.post('/signup',async(req, res) => {
   res.status(202).send("susses")
   })
 
+  app.post('/getflat',async(req, res) => {
+    const data =await req.body;
+    const result = flat.findOne({email:data.email,block:data.block,flatNumber:data.flatNumber})
+  
+  res.status(202).json(result)
+  })
+
+  app.post('/getmaintenance',async(req, res) => {
+    const data =await req.body;
+    const result =await Maintenance.find({email:data.email}).toArray()
+    console.log(await result);
+  res.status(202).json(result)
+  })
 
 
 

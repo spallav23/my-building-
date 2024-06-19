@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const FlatDetails = () => {
+  const [email, setemail] = useState()
   const navigate = useNavigate();
   const [ownerName, setOwnerName] = useState('');
   const [block, setBlock] = useState('');
@@ -14,10 +15,14 @@ const FlatDetails = () => {
      
        alert("please login first ");
        navigate('/')
-   }})
+   }
+   else{
+      setemail(e.data.email)
+   }
+  })
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/flat',{ownerName,block,flatNumber,flatType,rented,rentedPersonName}).then((e)=>{
+    axios.post('http://localhost:3000/flat',{ownerName,block,flatNumber,flatType,rented,rentedPersonName,email}).then((e)=>{
       console.log(e);
       if(e.status == 202){
           navigate('/home')
