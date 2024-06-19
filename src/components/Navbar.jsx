@@ -42,7 +42,7 @@ function logclick(){
                 <li><NavLink to='/home'>home</NavLink></li>
                 <li><NavLink to='/addflat'>Flat Details</NavLink></li>
                 <li><NavLink to='/addmaintenance'>maintenance Details</NavLink></li>
-                <li><NavLink id='login' onClick={logclick} >Login</NavLink></li>
+                <li><NavLink id='login' className='px-6 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-150 ease-in-out' onClick={logclick} >Login</NavLink></li>
             </ul>
         </div>
       </nav>
