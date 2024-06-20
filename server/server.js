@@ -18,7 +18,7 @@ app.use(session({
 }));
 
 const { MongoClient, ObjectId } = require("mongodb");
-const uri = "mongodb+srv://spp23102003:spp23102003@cluster0.vhincym.mongodb.net/";
+const uri = "mongodb+srv://spp23102003:@cluster0.vhincym.mongodb.net/";
 const client = new MongoClient(uri);
 
 const database = client.db("mybuilding");
