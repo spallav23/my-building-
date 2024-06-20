@@ -55,7 +55,7 @@ app.post('/login', async(req, res) => {
       res.json("login success");
     }
     else {
-      console.log("fail login");
+
       res.status(200, 'invalid');
       res.json("invalid login info");
     }
@@ -66,14 +66,12 @@ app.post('/signup',async(req, res) => {
     const data =await req.body;
     const result = await Society.findOne({ email: data.email })
     if (result != null) {
-      console.log("fail register-email already taken");
-      res.status(200).json("invalid demail already taken")
+      res.status(200).json("invalid email already taken")
     }
     else {
       req.session.name = data.name;
       req.session.email = data.email;
      const result = await doctor.insertOne(data);
-      console.log("success");
       res.status(202).send("ok");
     }
   })
@@ -81,9 +79,12 @@ app.post('/signup',async(req, res) => {
 
   app.post('/flat',async(req, res) => {
     const data =await req.body;
-    const result = flat.findOne({block:data.block,flatNumber:data.flatNumber})
+    const result =await flat.findOne({block:data.block,flatNumber:data.flatNumber,email:data.email})
+    console.log(result);
     if(result != null){
-      const result = await flat.findOneAndUpdate({block:data.block,flatNumber:data.flatNumber}, { $set: {data} })
+      const result = await flat.findOneAndDelete({block:data.block,flatNumber:data.flatNumber,email:data.email}).then(()=>{
+        flat.insertOne(data);
+      })
     }
     else{
       const result = flat.insertOne(data)
@@ -101,15 +102,17 @@ app.post('/signup',async(req, res) => {
 
   app.post('/getflat',async(req, res) => {
     const data =await req.body;
-    const result = flat.findOne({email:data.email,block:data.block,flatNumber:data.flatNumber})
-  
+    const result =await flat.find({email:data.email}).toArray()
+    console.log(result);
   res.status(202).json(result)
   })
 
   app.post('/getmaintenance',async(req, res) => {
     const data =await req.body;
-    const result =await Maintenance.find({email:data.email}).toArray()
-    console.log(await result);
+    console.log(data);
+    const result =await Maintenance.find({email:data.email,block:data.block,
+      flatNumber:data.flat}).toArray()
+    console.log(result);
   res.status(202).json(result)
   })
 
