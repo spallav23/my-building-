@@ -5,7 +5,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   axios.get('http://localhost:3000/').then((e) => {
     if (e.data.valid) {
-      document.getElementById('login').innerHTML = e.data.name;
+      document.getElementById('log').innerHTML = e.data.name;
     }
   })
 
@@ -15,7 +15,7 @@ function logclick(){
       const yn = confirm("do you want to log out ?");
       if (yn) {
         axios.post('http://localhost:3000/',{e}).then(() => {
-          document.getElementById('login').innerHTML = 'Log in';
+          document.getElementById('log').innerHTML = 'Log in';
           navigate('/');
         })
       }
@@ -42,7 +42,7 @@ function logclick(){
                 <li><NavLink to='/home'>home</NavLink></li>
                 <li><NavLink to='/addflat'>Flat Details</NavLink></li>
                 <li><NavLink to='/addmaintenance'>maintenance Details</NavLink></li>
-                <li><NavLink id='login' className='px-6 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-150 ease-in-out' onClick={logclick} >Login</NavLink></li>
+                <li><NavLink id='log' className='px-6 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-150 ease-in-out' onClick={logclick} >Log in</NavLink></li>
             </ul>
         </div>
       </nav>
